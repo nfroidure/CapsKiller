@@ -1,13 +1,13 @@
 # Welcome on CapsKiller sources : Caps remover for Thunderbird
 
 ## About CapsKiller
-CapsKiller is a simple Thunderbird extension that removes overused caps from you incoming mails.
+CapsKiller is a simple Thunderbird extension that replaces overused caps by normal letters from your incoming mails.
 
-To get CapsKiller for production go there https://addons.mozilla.org/fr/thunderbird/addon/caps-killer/.
+To get CapsKiller for production go there https://addons.mozilla.org/en-US/thunderbird/addon/caps-killer/.
 For the development version, follow the above quick start guide.
 
 ## About CapsKiller technologies
-CapsKiller is a Thunderbird addon. It use XUL and Javascript. You can get more information on the Mozilla Developer Center (https://developper.mozilla.org).
+CapsKiller is a Thunderbird addon. It uses XUL and Javascript. You can get more information on the Mozilla Developer Center (https://developper.mozilla.org).
 
 ## Quick start
 

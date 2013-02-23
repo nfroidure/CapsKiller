@@ -24,6 +24,28 @@
 		consoleService.logStringMessage('CapsKiller: Converting "'+subject+'" to "'+capsKiller(subject)+'"');//*/
 		return mimeConvert.encodeMimePartIIStr_UTF8(capsKiller(subject), false, "UTF-8", 0, 72);
 		}
+	// body filter
+	var bodyFilter = function(aMessageHeader)
+		{
+		let messenger = Components.classes["@mozilla.org/messenger;1"]
+			.createInstance(Components.interfaces.nsIMessenger);
+		let listener = Components.classes["@mozilla.org/network/sync-stream-listener;1"]
+			.createInstance(Components.interfaces.nsISyncStreamListener);
+		let uri = aMessageHeader.folder.getUriForMsg(aMessageHeader);
+			messenger.messageServiceFromURI(uri)
+			.streamMessage(uri, listener, null, null, false, "");
+		let folder = aMessageHeader.folder;
+		var body = folder.getMsgTextFromStream(listener.inputStream,
+			aMessageHeader.Charset,
+			65536,
+			32768,
+			false,
+			true,
+			{ });
+		//* Debug
+		consoleService.logStringMessage('CapsKiller: Converting "'+uri+'" content.');
+		consoleService.logStringMessage('CapsKiller: Content "'+body+'".');//*/
+		}
 	window.addEventListener('load', function()
 		{
 		// Localized strings
@@ -39,10 +61,6 @@
 					{
 					var msgHdr = aMsgHdrs.queryElementAt(i, Components.interfaces.nsIMsgDBHdr);
 					msgHdr.subject = subjectFilter(msgHdr.subject);
-					/*/ UTF8 string and mime-encoded subject
-					var subject =  mimeConvert.decodeMimeHeader(msgHdr.subject, null, false, true);
-					consoleService.logStringMessage('CapsKiller: Converting "'+subject+'" to "'+capsKiller(subject)+'"');
-					msgHdr.subject = mimeConvert.encodeMimePartIIStr_UTF8(capsKiller(subject), false, "UTF-8", 0, 72);*/
 					}
 				//* Debug
 				consoleService.logStringMessage('CapsKiller: Filter applied');//*/
@@ -76,7 +94,10 @@
 				msgAdded: function(msgHdr)
 					{
 					if(!msgHdr.isRead)
+						{
 						msgHdr.subject = subjectFilter(msgHdr.subject);
+						bodyFilter(msgHdr);
+						}
 					//* Debug
 					consoleService.logStringMessage('CapsKiller: Filter applied to new messages');//*/
 					}
