@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="capskiller@elitwork.com"
+                   em:version="0.1"
+                   em:name="Caps Killer"
+                   em:creator="Nicolas FROIDURE"
+                   em:homepageURL="http://capskiller.elitwork.com/"
+                   em:iconURL="chrome://capskiller/content/logo.png"
+                   em:type="2">
+    <em:targetApplication RDF:resource="rdf:#$arpP13"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$arpP13"
+                   em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
+                   em:minVersion="3.0"
+                   em:maxVersion="9.*" />
+</RDF:RDF>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<overlay id="capskiller-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/javascript" src="content.js"/>
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="capskiller-strings" src="chrome://capskiller/locale/capskiller.properties"/>
+  </stringbundleset>
+</overlay>
