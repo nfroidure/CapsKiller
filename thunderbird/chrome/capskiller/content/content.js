@@ -32,8 +32,8 @@
 		let listener = Components.classes["@mozilla.org/network/sync-stream-listener;1"]
 			.createInstance(Components.interfaces.nsISyncStreamListener);
 		let uri = aMessageHeader.folder.getUriForMsg(aMessageHeader);
-			messenger.messageServiceFromURI(uri)
-			.streamMessage(uri, listener, null, null, false, "");
+		let msgSrv=messenger.messageServiceFromURI(uri);
+		msgSrv.streamMessage(uri, listener, null, null, false, "");
 		let folder = aMessageHeader.folder;
 		var body = folder.getMsgTextFromStream(listener.inputStream,
 			aMessageHeader.Charset,
@@ -45,6 +45,11 @@
 		//* Debug
 		consoleService.logStringMessage('CapsKiller: Converting "'+uri+'" content.');
 		consoleService.logStringMessage('CapsKiller: Content "'+body+'".');//*/
+		var url={};
+		msgSrv.GetUrlForUri(uri, url, null);
+		//* Debug
+		consoleService.logStringMessage('CapsKiller: Url: "'+url+'".');
+		consoleService.logStringMessage('CapsKiller: Url: "'+url.value.spec+'".');//*/
 		}
 	window.addEventListener('load', function()
 		{
