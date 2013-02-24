@@ -1,7 +1,7 @@
 (function()
 	{
-	//* Debug : Requiring console
-	// replace "//* Debug" by "/* Debug" to comment each console logs
+	/* Debug : Requiring console
+	// replace "/* Debug" by "/* Debug" to comment each console logs
 	var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
 		.getService(Components.interfaces.nsIConsoleService);
 	consoleService.logStringMessage('CapsKiller: Started'); //*/
@@ -20,11 +20,11 @@
 	var subjectFilter = function(encSubject)
 		{
 		var subject =  mimeConvert.decodeMimeHeader(encSubject, null, false, true);
-		//* Debug
+		/* Debug
 		consoleService.logStringMessage('CapsKiller: Converting "'+subject+'" to "'+capsKiller(subject)+'"');//*/
 		return mimeConvert.encodeMimePartIIStr_UTF8(capsKiller(subject), false, "UTF-8", 0, 72);
 		}
-	// body filter
+	/*/ body filter
 	var bodyFilter = function(aMessageHeader)
 		{
 		let messenger = Components.classes["@mozilla.org/messenger;1"]
@@ -42,15 +42,9 @@
 			false,
 			true,
 			{ });
-		//* Debug
-		consoleService.logStringMessage('CapsKiller: Converting "'+uri+'" content.');
-		consoleService.logStringMessage('CapsKiller: Content "'+body+'".');//*/
 		var url={};
 		msgSrv.GetUrlForUri(uri, url, null);
-		//* Debug
-		consoleService.logStringMessage('CapsKiller: Url: "'+url+'".');
-		consoleService.logStringMessage('CapsKiller: Url: "'+url.value.spec+'".');//*/
-		}
+		}*/
 	window.addEventListener('load', function()
 		{
 		// Localized strings
@@ -67,31 +61,31 @@
 					var msgHdr = aMsgHdrs.queryElementAt(i, Components.interfaces.nsIMsgDBHdr);
 					msgHdr.subject = subjectFilter(msgHdr.subject);
 					}
-				//* Debug
+				/* Debug
 				consoleService.logStringMessage('CapsKiller: Filter applied');//*/
 				},
 			isValidForType: function(type, scope)
 				{
-				//* Debug
+				/* Debug
 				consoleService.logStringMessage('CapsKiller: Filter validated. Type: '+type+'.');//*/
 				return true;
 				}, // all
 			validateActionValue: function(value, folder, type)
 				{
-				//* Debug
+				/* Debug
 				consoleService.logStringMessage('CapsKiller: dunno what it does');//*/
 				return null;
 				},
 			allowDuplicates: true,
 			needsBody: false,
 			};
-			//* Debug
+			/* Debug
 			consoleService.logStringMessage('CapsKiller: Filter addition');//*/
 			// add filter action to filter action list
 			let filterService = Components.classes["@mozilla.org/messenger/services/filters;1"]
 			.getService(Components.interfaces.nsIMsgFilterService);
 			filterService.addCustomAction(capsFilter);
-			//* Debug
+			/* Debug
 			consoleService.logStringMessage('CapsKiller: Filter added');//*/
 			// Listening for new mails
 			var newMailListener =
@@ -101,9 +95,9 @@
 					if(!msgHdr.isRead)
 						{
 						msgHdr.subject = subjectFilter(msgHdr.subject);
-						bodyFilter(msgHdr);
+						//bodyFilter(msgHdr);
 						}
-					//* Debug
+					/* Debug
 					consoleService.logStringMessage('CapsKiller: Filter applied to new messages');//*/
 					}
 				}
@@ -111,7 +105,19 @@
 			Components.classes["@mozilla.org/messenger/msgnotificationservice;1"]
 				.getService(Components.interfaces.nsIMsgFolderNotificationService);
 			notificationService.addListener(newMailListener, notificationService.msgAdded);
-			//* Debug
+			/* Debug
 			consoleService.logStringMessage('CapsKiller: New messages listener added');//*/
+			// Modifying the opened messages on the fly
+			document.getElementById('messagepane').addEventListener('load',function() {
+				document.getElementById('expandedsubjectBox').headerValue=capsKiller(document.getElementById('messagepane').contentWindow.document.getElementsByTagName('title')[0].textContent);
+				var treeWalker = document.getElementById('messagepane').contentWindow.document.createTreeWalker(
+						document.getElementById('messagepane').contentWindow.document.body,
+						NodeFilter.SHOW_TEXT,
+						null,
+						false
+					);
+				while(treeWalker.nextNode())
+					treeWalker.currentNode.textContent=capsKiller(treeWalker.currentNode.textContent);
+				},true);
 			},false);
 	})();

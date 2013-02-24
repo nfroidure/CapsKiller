@@ -1,4 +1,4 @@
 content  capskiller   chrome/capskiller/content/
 locale   capskiller   en   chrome/capskiller/locale/en/
 locale   capskiller   fr   chrome/capskiller/locale/fr/
-overlay chrome://messenger/content/messenger.xul  chrome://capskiller/content/content.xul
+overlay chrome://messenger/content/messenger.xul chrome://capskiller/content/content.xul
