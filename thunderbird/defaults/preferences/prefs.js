@@ -2,3 +2,4 @@ pref("extensions.capskiller@elitwork.com.description","chrome://capskiller/local
 pref("extensions.capskiller@elitwork.com.maxcaps",1);
 pref("extensions.capskiller@elitwork.com.filtersubject",true);
 pref("extensions.capskiller@elitwork.com.filtercontent",true);
+pref("extensions.capskiller@elitwork.com.filterponctuation",true);

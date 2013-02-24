@@ -4,7 +4,7 @@
 
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:id="capskiller@elitwork.com"
-                   em:version="0.1"
+                   em:version="0.2"
                    em:name="Caps Killer"
                    em:creator="Nicolas FROIDURE"
                    em:homepageURL="http://capskiller.elitwork.com/"
@@ -15,5 +15,5 @@
   <RDF:Description RDF:about="rdf:#$arpP13"
                    em:id="{3550f703-e582-4d05-9a08-453d09bdfdc6}"
                    em:minVersion="3.0"
-                   em:maxVersion="9.*" />
+                   em:maxVersion="22.0" />
 </RDF:RDF>
